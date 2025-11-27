@@ -33,11 +33,11 @@
     "id": "05",
     "name": "QiYi Warrior M (Cosmic Setup)",
     "type": "3x3x3",
-    "status": "available",
+    "status": "active",
     "borrower_id": null,
     "due_date": null,
-    "borrower": null,
-    "borrowed_at": null
+    "borrower": "1456255",
+    "borrowed_at": "2025-11-27T08:03:54.595Z"
   },
   {
     "id": "06",
