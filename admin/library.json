@@ -63,11 +63,11 @@
     "id": "08",
     "name": "QiYi Warrior M (FZ Setup)",
     "type": "3x3x3",
-    "status": "available",
+    "status": "active",
     "borrower_id": null,
     "due_date": null,
-    "borrower": null,
-    "borrowed_at": null
+    "borrower": "1456255",
+    "borrowed_at": "2025-11-27T08:49:04.817Z"
   },
   {
     "id": "09",
