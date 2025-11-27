@@ -14,6 +14,7 @@
     th { background:#69a769; color:white; }
     tr:nth-child(even) { background:#f2f2f2; }
     .borrow-btn { background:#69a769; color:white; padding:0.5rem 1rem; border:none; border-radius:5px; cursor:pointer; }
+    .borrow-btn:hover { background:#7CFC00; }
     .borrow-btn:disabled { background:#ccc; cursor:not-allowed; }
     footer { background:#69a769; color:white; text-align:center; padding:1rem; position:fixed; bottom:0; width:100%; }
 
@@ -23,12 +24,32 @@
       background:rgba(0,0,0,0.5); justify-content:center; align-items:center;
     }
     .modal-content {
-      background:white; padding:2rem; border-radius:8px; position:relative; width:300px; text-align:center;
+      background:white; border-radius:8px; width:500px; max-width:95%; overflow:hidden;
+      box-shadow:0 4px 10px rgba(0,0,0,0.3);
     }
-    .close {
-      position:absolute; top:10px; right:10px; cursor:pointer; font-weight:bold; font-size:18px;
+    .modal-header {
+      background:#69a769; color:white; padding:1rem; font-weight:bold; text-align:left;
+      position:relative; font-size:1.2rem;
     }
-    .modal button { margin:0.5rem; }
+    .modal-header .close {
+      position:absolute; top:10px; right:15px; cursor:pointer; font-weight:bold; font-size:20px;
+    }
+    .modal-body {
+      padding:2rem; text-align:center; font-size:1rem;
+    }
+    .modal-body input[type="text"] {
+      width:90%; padding:0.7rem; margin:1rem 0; border:1px solid #ccc; border-radius:5px; font-size:1rem;
+    }
+    .modal-body button {
+      background:#69a769; color:white; border:none; border-radius:5px;
+      padding:0.7rem 1.2rem; margin:0.5rem; cursor:pointer; font-size:1rem;
+    }
+    .modal-body button:hover {
+      background:#7CFC00;
+    }
+    .bold-line {
+      display:block; margin-top:0.8rem; font-weight:bold;
+    }
   </style>
 </head>
 <body>
@@ -57,9 +78,12 @@
 
   <!-- Modal -->
   <div id="modal" class="modal">
-    <div class="modal-content" id="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <div id="modal-body"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        Cube Rental
+        <span class="close" onclick="closeModal()">&times;</span>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
     </div>
   </div>
 
@@ -99,7 +123,7 @@
       selectedItem = item;
       showModal(`
         <h3>Enter your Student ID</h3>
-        <input type="text" id="studentIdInput" placeholder="Student ID"><br><br>
+        <input type="text" id="studentIdInput" placeholder="Student ID"><br>
         <button onclick="checkStudent()">Submit</button>
       `);
     }
@@ -109,7 +133,8 @@
       const member = members.find(m => m.student_id === id);
       if (member) {
         showModal(`
-          <h3>Is your name ${member.name}?</h3>
+          <h3>Is this you?</h3>
+          <span class="bold-line">${member.name}</span>
           <button onclick="confirmBorrow()">Yes</button>
         `);
       } else {
@@ -120,7 +145,7 @@
     function confirmBorrow() {
       showModal(`
         <h3>Are you sure you want to borrow:</h3>
-        <p><strong>${selectedItem.name}</strong></p>
+        <span class="bold-line">${selectedItem.name}</span>
         <button onclick="finalizeBorrow()">Yes</button>
       `);
     }
