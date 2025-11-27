@@ -120,9 +120,81 @@
 <body>
   <nav>
     <h1>Admin Panel</h1>
-    <div>
-      <button class="logout-btn" onclick="logout()">Logout</button>
-    </div>
+   <div class="admin-box">
+  <h2>Update Times</h2>
+  <form id="updateForm">
+    <!-- Update type radio buttons -->
+    <p><strong>Update Type:</strong></p>
+    <label>
+      <input type="radio" name="updateType" value="single" required>
+      Personal Best (Single)
+    </label>
+    <label>
+      <input type="radio" name="updateType" value="average">
+      Average
+    </label>
+
+    <!-- Cube type dropdown -->
+    <p><strong>Cube Type:</strong></p>
+    <select id="cubeType" name="cubeType" required>
+      <option value="">--Select Cube--</option>
+      <option value="3x3x3">3x3x3</option>
+      <option value="2x2x2">2x2x2</option>
+      <option value="4x4x4">4x4x4</option>
+      <option value="5x5x5">5x5x5</option>
+      <option value="6x6x6">6x6x6</option>
+      <option value="7x7x7">7x7x7</option>
+      <option value="3x3x3BLD">3x3x3BLD</option>
+      <option value="FMC">FMC</option>
+      <option value="3x3x3OH">3x3x3OH</option>
+      <option value="Clock">Clock</option>
+      <option value="Megaminx">Megaminx</option>
+      <option value="Pyraminx">Pyraminx</option>
+      <option value="Skewb">Skewb</option>
+      <option value="Square-1">Square-1</option>
+    </select>
+
+    <!-- Member dropdown -->
+    <p><strong>Member:</strong></p>
+    <select id="memberName" name="memberName" required>
+      <option value="">--Select Member--</option>
+      <option value="Tonnam Tantikamnerdkul">Tonnam Tantikamnerdkul</option>
+      <option value="James Lin">James Lin</option>
+      <option value="Matthew Park">Matthew Park</option>
+      <option value="Harry Yu">Harry Yu</option>
+      <option value="Ayush Shete">Ayush Shete</option>
+      <option value="Yune Ham">Yune Ham</option>
+      <option value="Ethan Shi">Ethan Shi</option>
+      <option value="Mr. Leung">Mr. Leung</option>
+      <option value="Onew Kim">Onew Kim</option>
+      <option value="Markus Palkoci">Markus Palkoci</option>
+      <option value="Mason Kwok">Mason Kwok</option>
+      <option value="Siddhant Bairwa">Siddhant Bairwa</option>
+      <option value="Tristan Ng">Tristan Ng</option>
+      <option value="Mathis Tsang">Mathis Tsang</option>
+      <option value="Abtin Kha">Abtin Kha</option>
+      <option value="Zachary Ou">Zachary Ou</option>
+      <option value="Sean Leong">Sean Leong</option>
+      <option value="Ian Park">Ian Park</option>
+      <option value="Justin Tian">Justin Tian</option>
+      <option value="Priya Raghu">Priya Raghu</option>
+      <option value="Hugo Akesson">Hugo Akesson</option>
+      <option value="Daebum Yoon">Daebum Yoon</option>
+      <option value="Liam Senjack">Liam Senjack</option>
+    </select>
+
+    <!-- Time input -->
+    <p><strong>New Time:</strong></p>
+    <input type="text" id="newTime" name="newTime" placeholder="e.g. 5:23.46" required>
+
+    <!-- Submit button -->
+    <br><br>
+    <button type="submit">Update</button>
+  </form>
+
+  <!-- Feedback message -->
+  <div id="updateMessage" style="margin-top:1rem; color:#69a769; font-weight:bold;"></div>
+</div>
   </nav>
 
   <main>
