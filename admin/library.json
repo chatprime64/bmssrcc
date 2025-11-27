@@ -1,5 +1,5 @@
 [
-  { "id": "01", "name": "QiYi Warrior M (No Setup)", "type": "3x3x3", "status": "unavailable", "borrower_id": null, "due_date": null },
+  { "id": "01", "name": "QiYi Warrior M (No Setup)", "type": "3x3x3", "status": "available", "borrower_id": null, "due_date": null },
   { "id": "02", "name": "QiYi Warrior M (No Setup)", "type": "3x3x3", "status": "unavailable", "borrower_id": null, "due_date": null },
   { "id": "04", "name": "QiYi Warrior M (ProShop Setup)", "type": "3x3x3", "status": "unavailable", "borrower_id": null, "due_date": null },
   { "id": "05", "name": "QiYi Warrior M (Cosmic Setup)", "type": "3x3x3", "status": "unavailable", "borrower_id": null, "due_date": null },
