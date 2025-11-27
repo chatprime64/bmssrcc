@@ -28,18 +28,18 @@
       margin: 0;
       font-size: 1.5rem;
     }
-    nav a, .logout-btn {
+    .logout-btn {
+      background-color: #4a7c4a; /* darker green default */
       color: white;
-      text-decoration: none;
-      margin: 0 1rem;
-      font-weight: bold;
+      border: none;
       padding: 0.5rem 1rem;
       border-radius: 5px;
-      transition: background-color 0.3s;
       cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
     }
-    nav a:hover, .logout-btn:hover {
-      background-color: rgba(255,255,255,0.2);
+    .logout-btn:hover {
+      background-color: #69a769; /* lighter green on hover */
     }
     .menu-toggle {
       display: none;
@@ -151,7 +151,7 @@
     async function checkAuth() {
       const key = getCookie("githubKey");
       if (!key) {
-        window.location.href = "/login.html";
+        window.location.href = "/bmssrcc/login.html";
         return;
       }
       try {
@@ -159,17 +159,17 @@
           headers: { Authorization: `token ${key}` }
         });
         if (!response.ok) {
-          window.location.href = "/login.html";
+          window.location.href = "/bmssrcc/login.html";
         }
       } catch (err) {
-        window.location.href = "/login.html";
+        window.location.href = "/bmssrcc/login.html";
       }
     }
 
     // Logout: clear cookie and go home
     function logout() {
       document.cookie = "githubKey=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; Secure; SameSite=Strict";
-      window.location.href = "/index.html";
+      window.location.href = "/bmssrcc/index.html";
     }
 
     // Run check on load
