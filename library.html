@@ -193,7 +193,7 @@
 
     async function pollWorkflowStatus() {
       const prog = document.getElementById("workflow-progress");
-      const res = await fetch("https://api.github.com/repos/YOURUSER/YOURREPO/actions/runs");
+      const res = await fetch("https://api.github.com/repos/chatprime64/bmssrcc/actions/runs");
       const data = await res.json();
       const latest = data.workflow_runs[0];
 
@@ -229,5 +229,6 @@
   </script>
 </body>
 </html>
+
 
 
