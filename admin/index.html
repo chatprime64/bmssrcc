@@ -210,22 +210,17 @@
       window.location.href = "/bmssrcc/index.html";
     }
 
-    document.getElementById("updateForm").addEventListener("submit", async function(e) {
-      e.preventDefault();
-      const updateType = document.querySelector('input[name="updateType"]:checked').value;
-      const cubeType = document.getElementById("cubeType").value;
-      const memberName = document.getElementById("memberName").value;
-      const newTime = document.getElementById("newTime").value;
-      document.getElementById("updateMessage").textContent =
-        `Updating ${memberName} - ${cubeType} - ${updateType} to ${newTime}... (logic to be added)`;
-          document.getElementById("updateForm").addEventListener("submit", async function(e) {
-      e.preventDefault();
-      const updateType = document.querySelector('input[name="updateType"]:checked').value;
-      const cubeType = document.getElementById("cubeType").value;
-      const memberName = document.getElementById("memberName").value;
-      const newTime = document.getElementById("newTime").value;
-      const token = getCookie("githubKey");
-      const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/rankings-data.json`;
+document.getElementById("updateForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+  const updateType = document.querySelector('input[name="updateType"]:checked').value;
+  const cubeType = document.getElementById("cubeType").value;
+  const memberName = document.getElementById("memberName").value;
+  const newTime = document.getElementById("newTime").value;
+  const token = getCookie("githubKey");
+  const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/rankings-data.json`;
+
+  // …parseTime, customStringify, fetch file, update competitor, recalc ranks…
+
 
       function parseTime(str) {
         if (!str) return null;
@@ -354,7 +349,6 @@
       }
     });
 
-    });
 
     checkAuth();
   </script>
