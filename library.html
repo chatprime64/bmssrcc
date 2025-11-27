@@ -151,8 +151,11 @@
     }
 
     function finalizeBorrow() {
-      closeModal();
-      alert(`Borrow confirmed for ${selectedItem.name}. (Placeholder action)`);
+      showModal(`
+        <h3>Cube has been requested.</h3>
+        <p>The website will update momentarily.</p>
+        <button onclick="closeModal()">OK</button>
+      `);
     }
 
     function showModal(content) {
