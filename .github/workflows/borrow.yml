@@ -1,0 +1,25 @@
+name: Borrow Cube
+
+on:
+  repository_dispatch:
+    types: [borrow-cube]
+
+jobs:
+  update-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Update library.json
+        run: |
+          echo "Borrow request for cube ${{ github.event.client_payload.itemId }} by ${{ github.event.client_payload.studentId }}"
+          node scripts/updateLibrary.js "${{ github.event.client_payload.itemId }}" "${{ github.event.client_payload.studentId }}"
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add admin/library.json
+          git commit -m "Borrow cube ${{ github.event.client_payload.itemId }}"
+          git push
