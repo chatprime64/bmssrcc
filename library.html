@@ -2,71 +2,168 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cube Library</title>
+  <title>Library - BMSS Rubik's Cube Club</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #fff; color: #333; }
-    h1 { text-align: center; color: #69a769; margin: 1rem 0; }
-    table { width: 90%; margin: 1rem auto; border-collapse: collapse; }
-    th, td { border: 1px solid #ccc; padding: 0.5rem; text-align: center; }
-    th { background: #69a769; color: #fff; }
-    button { padding: 0.4rem 0.8rem; border: none; border-radius: 4px; background: #69a769; color: #fff; cursor: pointer; }
-    button:disabled { background: #ccc; cursor: not-allowed; }
+    body { font-family: Arial, sans-serif; margin:0; padding:0; background:#fff; color:#333; }
+    nav { background:#69a769; padding:1rem; text-align:center; }
+    nav a { color:white; text-decoration:none; margin:0 1rem; font-weight:bold; }
+    nav a.active { background:white; color:#69a769; padding:0.5rem 1rem; border-radius:5px; }
+    main { padding:2rem; text-align:center; }
+    table { width:80%; margin:2rem auto; border-collapse:collapse; box-shadow:0 2px 10px rgba(0,0,0,0.1); }
+    th, td { border:1px solid #69a769; padding:0.8rem; text-align:left; }
+    th { background:#69a769; color:white; }
+    tr:nth-child(even) { background:#f2f2f2; }
+    .borrow-btn { background:#69a769; color:white; padding:0.5rem 1rem; border:none; border-radius:5px; cursor:pointer; }
+    .borrow-btn:hover { background:#7CFC00; }
+    .borrow-btn:disabled { background:#ccc; cursor:not-allowed; }
+    footer { background:#69a769; color:white; text-align:center; padding:1rem; position:fixed; bottom:0; width:100%; }
+
+    /* Modal styles */
+    .modal {
+      display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+      background:rgba(0,0,0,0.5); justify-content:center; align-items:center;
+    }
+    .modal-content {
+      background:white; border-radius:8px; width:500px; max-width:95%; overflow:hidden;
+      box-shadow:0 4px 10px rgba(0,0,0,0.3);
+    }
+    .modal-header {
+      background:#69a769; color:white; padding:1rem; font-weight:bold; text-align:left;
+      position:relative; font-size:1.2rem;
+    }
+    .modal-header .close {
+      position:absolute; top:10px; right:15px; cursor:pointer; font-weight:bold; font-size:20px;
+    }
+    .modal-body {
+      padding:2rem; text-align:center; font-size:1rem;
+    }
+    .modal-body input[type="text"] {
+      width:90%; padding:0.7rem; margin:1rem 0; border:1px solid #ccc; border-radius:5px; font-size:1rem;
+    }
+    .modal-body button {
+      background:#69a769; color:white; border:none; border-radius:5px;
+      padding:0.7rem 1.2rem; margin:0.5rem; cursor:pointer; font-size:1rem;
+    }
+    .modal-body button:hover {
+      background:#7CFC00;
+    }
+    .bold-line {
+      display:block; margin-top:0.8rem; font-weight:bold;
+    }
     #workflow-bar { width:80%;margin:1rem auto;height:18px;background:#e5e5e5;border-radius:9px;overflow:hidden;display:none; }
     #workflow-progress { width:0%;height:100%;background:#69a769;transition:width 0.4s ease; }
   </style>
 </head>
 <body>
-  <h1>Cube Library</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="aboutus.html">About Us</a>
+    <a href="schranking.html">School Ranking</a>
+    <a href="events.html">Events</a>
+    <a href="members.html">Members</a>
+    <a href="library.html" class="active">Library</a>
+  </nav>
 
-  <table id="library-table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Status</th>
-        <th>Borrower</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+  <main>
+    <h1>Library</h1>
+    <p>You can borrow cubes for up to <strong>7 days</strong>. To renew, please ask a <strong>club leader</strong>.</p>
 
-  <div id="workflow-bar">
-    <div id="workflow-progress"></div>
+    <table id="library-table">
+      <thead>
+        <tr><th>Item ID</th><th>Name</th><th>Type</th><th>Status</th><th>Action</th></tr>
+      </thead>
+      <tbody id="library-tbody"></tbody>
+    </table>
+
+    <div id="workflow-bar">
+      <div id="workflow-progress"></div>
+    </div>
+  </main>
+
+  <footer>&copy; 2025 BMSS Rubik's Cube Club</footer>
+
+  <!-- Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        Cube Rental
+        <span class="close" onclick="closeModal()">&times;</span>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
   </div>
 
   <script>
-    // Load cubes from library.json
-    async function loadLibrary() {
-      const res = await fetch("admin/library.json");
-      const cubes = await res.json();
-      const tbody = document.querySelector("#library-table tbody");
-      tbody.innerHTML = "";
+    let members = [];
+    let selectedItem = null;
+    let selectedStudentId = null;
 
-      cubes.forEach(cube => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${cube.id}</td>
-          <td>${cube.name}</td>
-          <td>${cube.type}</td>
-          <td>${cube.status}</td>
-          <td>${cube.borrower_id || ""}</td>
-          <td>
-            ${cube.status === "available" 
-              ? `<button onclick="borrowCube('${cube.id}', prompt('Enter your Student ID'))">Borrow</button>` 
-              : `<button disabled>Not Available</button>`}
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
+    async function loadMembers() {
+      const res = await fetch('admin/members.json');
+      members = await res.json();
     }
 
-    async function borrowCube(itemId, studentId) {
-      if (!studentId) return;
-      const confirmed = confirm(`Do you want to borrow cube ${itemId}?`);
-      if (!confirmed) return;
+    async function loadLibrary() {
+      const res = await fetch('admin/library.json');
+      const items = await res.json();
+      const tbody = document.getElementById('library-tbody');
+      tbody.innerHTML = '';
+
+      for (const item of items) {
+        const row = tbody.insertRow();
+        row.insertCell().textContent = item.id;
+        row.insertCell().textContent = item.name;
+        row.insertCell().textContent = item.type;
+        row.insertCell().textContent = item.status;
+
+        const actionCell = row.insertCell();
+        const btn = document.createElement('button');
+        btn.className = 'borrow-btn';
+        btn.textContent = 'Borrow';
+        btn.disabled = item.status !== "available";
+        btn.onclick = () => startBorrow(item);
+        actionCell.appendChild(btn);
+      }
+    }
+
+    function startBorrow(item) {
+      selectedItem = item;
+      showModal(`
+        <h3>Enter your Student ID</h3>
+        <input type="text" id="studentIdInput" placeholder="Student ID"><br>
+        <button onclick="checkStudent()">Submit</button>
+      `);
+    }
+
+    function checkStudent() {
+      const id = document.getElementById('studentIdInput').value.trim();
+      const member = members.find(m => m.student_id === id);
+      if (member) {
+        selectedStudentId = id;
+        showModal(`
+          <h3>Is this you?</h3>
+          <span class="bold-line">${member.name}</span>
+          <button onclick="confirmBorrow()">Yes</button>
+        `);
+      } else {
+        showModal(`<h3>We couldn't find you.</h3>`);
+      }
+    }
+
+    function confirmBorrow() {
+      showModal(`
+        <h3>Are you sure you want to borrow:</h3>
+        <span class="bold-line">${selectedItem.name}</span>
+        <button onclick="finalizeBorrow()">Yes</button>
+      `);
+    }
+
+    async function finalizeBorrow() {
+      showModal(`
+        <h3>Cube has been requested.</h3>
+        <p>The website will update momentarily.</p>
+        <button onclick="closeModal()">OK</button>
+      `);
 
       // Show progress bar
       document.getElementById("workflow-bar").style.display = "block";
@@ -82,7 +179,7 @@
         },
         body: JSON.stringify({
           ref: "main",
-          inputs: { itemId, studentId }
+          inputs: { itemId: selectedItem.id, studentId: selectedStudentId }
         })
       });
 
@@ -107,15 +204,28 @@
         setTimeout(() => {
           document.getElementById("workflow-bar").style.display = "none";
           alert("Borrow confirmed! Cube is now active.");
-          loadLibrary(); // reload table to show updated status
+          loadLibrary(); // reload table to reflect updated status
         }, 1500);
         return;
       }
 
+      // keep polling until workflow completes
       setTimeout(pollWorkflowStatus, 4000);
     }
 
-    loadLibrary();
+    function showModal(content) {
+      document.getElementById('modal-body').innerHTML = content;
+      document.getElementById('modal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('modal').style.display = 'none';
+    }
+
+    window.onload = async () => {
+      await loadMembers();
+      await loadLibrary();
+    };
   </script>
 </body>
 </html>
