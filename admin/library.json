@@ -1,0 +1,14 @@
+[
+  { "id": "01", "name": "QiYi Warrior M (No Setup)", "type": "3x3x3", "status": "unavailable", "borrower_id": null, "due_date": null },
+  { "id": "02", "name": "QiYi Warrior M (No Setup)", "type": "3x3x3", "status": "unavailable", "borrower_id": null, "due_date": null },
+  { "id": "04", "name": "QiYi Warrior M (ProShop Setup)", "type": "3x3x3", "status": "unavailable", "borrower_id": null, "due_date": null },
+  { "id": "05", "name": "QiYi Warrior M (Cosmic Setup)", "type": "3x3x3", "status": "unavailable", "borrower_id": null, "due_date": null },
+  { "id": "06", "name": "QiYi Warrior M (Supernova Setup)", "type": "3x3x3", "status": "unavailable", "borrower_id": null, "due_date": null },
+  { "id": "07", "name": "QiYi Warrior M (Mystic Setup)", "type": "3x3x3", "status": "unavailable", "borrower_id": null, "due_date": null },
+  { "id": "08", "name": "QiYi Warrior M (FZ Setup)", "type": "3x3x3", "status": "unavailable", "borrower_id": null, "due_date": null },
+  { "id": "09", "name": "QiYi Warrior M (Tonnam's Setup)", "type": "3x3x3", "status": "unavailable", "borrower_id": null, "due_date": null },
+  { "id": "10", "name": "QiYi Warrior M (James's Setup)", "type": "3x3x3", "status": "unavailable", "borrower_id": null, "due_date": null },
+  { "id": "11", "name": "YJ MGC 6x6", "type": "6x6x6", "status": "unavailable", "borrower_id": null, "due_date": null },
+  { "id": "12", "name": "Modded Shengshou Pyraminx", "type": "Pyraminx", "status": "unavailable", "borrower_id": null, "due_date": null },
+  { "id": "13", "name": "QiYi Bluetooth Timer", "type": "Timer", "status": "unavailable", "borrower_id": null, "due_date": null }
+]
