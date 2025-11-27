@@ -39,6 +39,22 @@
       background-color: white;
       color: #69a769;
     }
+    .menu-toggle {
+      display: none;
+      cursor: pointer;
+      color: white;
+      font-size: 1.5rem;
+      margin-right: 1rem;
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+    nav li {
+      margin-left: 1rem;
+    }
     main {
       display: flex;
       flex-direction: column;
@@ -94,10 +110,38 @@
       bottom: 0;
       width: 100%;
     }
+
+    @media (max-width: 768px) {
+      nav {
+        justify-content: space-between;
+      }
+      nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #69a769;
+        z-index: 1000;
+      }
+      nav ul.show {
+        display: flex;
+      }
+      nav li {
+        margin: 0;
+        text-align: center;
+        padding: 1rem;
+      }
+      .menu-toggle {
+        display: block;
+      }
+    }
   </style>
 </head>
 <body>
   <nav>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
     <ul id="nav-menu">
       <li><a href="index.html">Home</a></li>
       <li><a href="aboutus.html">About Us</a></li>
@@ -125,8 +169,22 @@
   </footer>
 
   <script>
-    const repoOwner = "YOUR-USERNAME"; // replace with your GitHub username
-    const repoName = "YOUR-REPO";      // replace with your repo name
+    function toggleMenu() {
+      document.getElementById('nav-menu').classList.toggle('show');
+    }
+    function closeMenu() {
+      document.getElementById('nav-menu').classList.remove('show');
+    }
+    document.addEventListener('click', function(event) {
+      const navMenu = document.getElementById('nav-menu');
+      const menuToggle = document.querySelector('.menu-toggle');
+      if (!navMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+        closeMenu();
+      }
+    });
+
+    const repoOwner = "Chatprime64"; // replace with your GitHub username
+    const repoName = "bmssrcc";      // replace with your repo name
 
     document.getElementById("loginForm").addEventListener("submit", async function(e) {
       e.preventDefault();
