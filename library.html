@@ -2,60 +2,33 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Library - BMSS Rubik's Cube Club</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: white;
-      color: #333;
+    body { font-family: Arial, sans-serif; margin:0; padding:0; background:#fff; color:#333; }
+    nav { background:#69a769; padding:1rem; text-align:center; }
+    nav a { color:white; text-decoration:none; margin:0 1rem; font-weight:bold; }
+    nav a.active { background:white; color:#69a769; padding:0.5rem 1rem; border-radius:5px; }
+    main { padding:2rem; text-align:center; }
+    table { width:80%; margin:2rem auto; border-collapse:collapse; box-shadow:0 2px 10px rgba(0,0,0,0.1); }
+    th, td { border:1px solid #69a769; padding:0.8rem; text-align:left; }
+    th { background:#69a769; color:white; }
+    tr:nth-child(even) { background:#f2f2f2; }
+    .borrow-btn { background:#69a769; color:white; padding:0.5rem 1rem; border:none; border-radius:5px; cursor:pointer; }
+    .borrow-btn:disabled { background:#ccc; cursor:not-allowed; }
+    footer { background:#69a769; color:white; text-align:center; padding:1rem; position:fixed; bottom:0; width:100%; }
+
+    /* Modal styles */
+    .modal {
+      display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+      background:rgba(0,0,0,0.5); justify-content:center; align-items:center;
     }
-    nav {
-      background-color: #69a769;
-      padding: 1rem;
-      text-align: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    .modal-content {
+      background:white; padding:2rem; border-radius:8px; position:relative; width:300px; text-align:center;
     }
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 1rem;
-      font-weight: bold;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      transition: background-color 0.3s;
+    .close {
+      position:absolute; top:10px; right:10px; cursor:pointer; font-weight:bold; font-size:18px;
     }
-    nav a:hover {
-      background-color: rgba(255,255,255,0.2);
-    }
-    .active {
-      background-color: white;
-      color: #69a769;
-    }
-    main {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 80vh;
-      padding: 2rem;
-      padding-bottom: 5rem;
-    }
-    h1, h2 {
-      color: #69a769;
-    }
-    h1 { font-size: 2.5rem; margin-bottom: 1rem; }
-    p { max-width: 600px; line-height: 1.6; color: #666; text-align: center; }
-    table { width: 80%; max-width: 800px; border-collapse: collapse; margin: 2rem auto; background-color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-    table th, table td { border: 1px solid #69a769; padding: 0.8rem; text-align: left; }
-    table th { background-color: #69a769; color: white; }
-    table tr:nth-child(even) { background-color: #f2f2f2; }
-    .borrow-btn { background-color: #69a769; color: white; padding: 0.5rem 1rem; border: none; border-radius: 5px; cursor: pointer; }
-    .borrow-btn:hover { background-color: #7CFC00; }
-    .borrow-btn:disabled { background-color: #ccc; cursor: not-allowed; }
-    footer { background-color: #69a769; color: white; text-align: center; padding: 1rem; position: fixed; bottom: 0; width: 100%; }
+    .modal button { margin:0.5rem; }
   </style>
 </head>
 <body>
@@ -70,63 +43,106 @@
 
   <main>
     <h1>Library</h1>
-    <p>
-      Borrow cubes from our library! You can borrow an item for up to <strong>7 days</strong>.  
-      If you need more time, you must ask a <strong>club leader</strong> to renew your borrow.
-    </p>
+    <p>You can borrow cubes for up to <strong>7 days</strong>. To renew, please ask a <strong>club leader</strong>.</p>
 
     <table id="library-table">
       <thead>
-        <tr>
-          <th>Item ID</th>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Status</th>
-          <th>Action</th>
-        </tr>
+        <tr><th>Item ID</th><th>Name</th><th>Type</th><th>Status</th><th>Action</th></tr>
       </thead>
       <tbody id="library-tbody"></tbody>
     </table>
   </main>
 
-  <footer>
-    &copy; 2025 BMSS Rubik's Cube Club. Hosted on GitHub Pages.
-  </footer>
+  <footer>&copy; 2025 BMSS Rubik's Cube Club</footer>
+
+  <!-- Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-content" id="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <div id="modal-body"></div>
+    </div>
+  </div>
 
   <script>
+    let members = [];
+    let selectedItem = null;
+
+    async function loadMembers() {
+      const res = await fetch('admin/members.json');
+      members = await res.json();
+    }
+
     async function loadLibrary() {
-      try {
-        const response = await fetch('admin/library.json'); // fetch from admin folder
-        const items = await response.json();
-        const tbody = document.getElementById('library-tbody');
-        tbody.innerHTML = '';
+      const res = await fetch('admin/library.json');
+      const items = await res.json();
+      const tbody = document.getElementById('library-tbody');
+      tbody.innerHTML = '';
 
-        for (const item of items) {
-          const row = tbody.insertRow();
-          row.insertCell().textContent = item.id;
-          row.insertCell().textContent = item.name;
-          row.insertCell().textContent = item.type;
-          row.insertCell().textContent = item.status;
+      for (const item of items) {
+        const row = tbody.insertRow();
+        row.insertCell().textContent = item.id;
+        row.insertCell().textContent = item.name;
+        row.insertCell().textContent = item.type;
+        row.insertCell().textContent = item.status;
 
-          const actionCell = row.insertCell();
-          const borrowBtn = document.createElement('button');
-          borrowBtn.className = 'borrow-btn';
-          borrowBtn.textContent = 'Borrow';
-
-          if (item.status === "available") {
-            borrowBtn.disabled = false;
-          } else {
-            borrowBtn.disabled = true;
-          }
-
-          actionCell.appendChild(borrowBtn);
-        }
-      } catch (error) {
-        console.error('Error loading library data:', error);
+        const actionCell = row.insertCell();
+        const btn = document.createElement('button');
+        btn.className = 'borrow-btn';
+        btn.textContent = 'Borrow';
+        btn.disabled = item.status !== "available";
+        btn.onclick = () => startBorrow(item);
+        actionCell.appendChild(btn);
       }
     }
 
-    window.onload = loadLibrary;
+    function startBorrow(item) {
+      selectedItem = item;
+      showModal(`
+        <h3>Enter your Student ID</h3>
+        <input type="text" id="studentIdInput" placeholder="Student ID"><br><br>
+        <button onclick="checkStudent()">Submit</button>
+      `);
+    }
+
+    function checkStudent() {
+      const id = document.getElementById('studentIdInput').value.trim();
+      const member = members.find(m => m.student_id === id);
+      if (member) {
+        showModal(`
+          <h3>Is your name ${member.name}?</h3>
+          <button onclick="confirmBorrow()">Yes</button>
+        `);
+      } else {
+        showModal(`<h3>We couldn't find you.</h3>`);
+      }
+    }
+
+    function confirmBorrow() {
+      showModal(`
+        <h3>Are you sure you want to borrow:</h3>
+        <p><strong>${selectedItem.name}</strong></p>
+        <button onclick="finalizeBorrow()">Yes</button>
+      `);
+    }
+
+    function finalizeBorrow() {
+      closeModal();
+      alert(`Borrow confirmed for ${selectedItem.name}. (Placeholder action)`);
+    }
+
+    function showModal(content) {
+      document.getElementById('modal-body').innerHTML = content;
+      document.getElementById('modal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('modal').style.display = 'none';
+    }
+
+    window.onload = async () => {
+      await loadMembers();
+      await loadLibrary();
+    };
   </script>
 </body>
 </html>
