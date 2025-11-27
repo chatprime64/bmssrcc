@@ -21,9 +21,11 @@
     "id": "04",
     "name": "QiYi Warrior M (ProShop Setup)",
     "type": "3x3x3",
-    "status": "unavailable",
+    "status": "active",
     "borrower_id": null,
-    "due_date": null
+    "due_date": null,
+    "borrower": "2588118",
+    "borrowed_at": "2025-11-27T06:08:02.523Z"
   },
   {
     "id": "05",
