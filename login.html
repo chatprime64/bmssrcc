@@ -101,6 +101,15 @@
       color: red;
       margin-top: 1rem;
     }
+    .helper {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #555;
+    }
+    .helper a {
+      color: #69a769;
+      text-decoration: underline;
+    }
     footer {
       background-color: #69a769;
       color: white;
@@ -160,6 +169,10 @@
         <input type="password" id="githubKey" name="password" autocomplete="current-password" required>
         <button type="submit">Login</button>
         <div id="error" class="error"></div>
+        <div class="helper">
+          Don’t have a GitHub key? <a href="https://github.com/settings/tokens" target="_blank">Click here</a>.<br>
+          Choose <strong>Create a new classic token</strong> and give it <strong>repo</strong> access.
+        </div>
       </form>
     </div>
   </main>
