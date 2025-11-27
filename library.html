@@ -173,7 +173,7 @@
       const response = await fetch("https://api.github.com/repos/YOURUSER/YOURREPO/actions/workflows/borrow.yml/dispatches", {
         method: "POST",
         headers: {
-          "Authorization": "token YOUR_PUBLIC_WORKFLOW_TOKEN", // safe if only workflow dispatch
+          "Authorization": "token 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", // safe if only workflow dispatch
           "Accept": "application/vnd.github+json",
           "Content-Type": "application/json"
         },
@@ -229,3 +229,4 @@
   </script>
 </body>
 </html>
+
