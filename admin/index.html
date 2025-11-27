@@ -29,7 +29,7 @@
       font-size: 1.5rem;
     }
     .logout-btn {
-      background-color: #4a7c4a; /* darker green default */
+      background-color: #4a7c4a;
       color: white;
       border: none;
       padding: 0.5rem 1rem;
@@ -39,23 +39,7 @@
       transition: background-color 0.3s;
     }
     .logout-btn:hover {
-      background-color: #69a769; /* lighter green on hover */
-    }
-    .menu-toggle {
-      display: none;
-      cursor: pointer;
-      color: white;
-      font-size: 1.5rem;
-      margin-right: 1rem;
-    }
-    nav ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-    }
-    nav li {
-      margin-left: 1rem;
+      background-color: #69a769;
     }
     main {
       display: flex;
@@ -78,6 +62,32 @@
       max-width: 600px;
       width: 100%;
       margin-top: 2rem;
+      text-align: left;
+    }
+    .admin-box label, .admin-box p {
+      display: block;
+      margin-top: 1rem;
+    }
+    .admin-box input[type="text"], .admin-box select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .admin-box button {
+      margin-top: 1.5rem;
+      background-color: #69a769;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    .admin-box button:hover {
+      background-color: #558a55;
     }
     footer {
       background-color: #69a769;
@@ -88,119 +98,78 @@
       bottom: 0;
       width: 100%;
     }
-
-    @media (max-width: 768px) {
-      nav {
-        justify-content: space-between;
-      }
-      nav ul {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: #69a769;
-        z-index: 1000;
-      }
-      nav ul.show {
-        display: flex;
-      }
-      nav li {
-        margin: 0;
-        text-align: center;
-        padding: 1rem;
-      }
-      .menu-toggle {
-        display: block;
-      }
-    }
   </style>
 </head>
 <body>
   <nav>
     <h1>Admin Panel</h1>
-   <div class="admin-box">
-  <h2>Update Times</h2>
-  <form id="updateForm">
-    <!-- Update type radio buttons -->
-    <p><strong>Update Type:</strong></p>
-    <label>
-      <input type="radio" name="updateType" value="single" required>
-      Personal Best (Single)
-    </label>
-    <label>
-      <input type="radio" name="updateType" value="average">
-      Average
-    </label>
-
-    <!-- Cube type dropdown -->
-    <p><strong>Cube Type:</strong></p>
-    <select id="cubeType" name="cubeType" required>
-      <option value="">--Select Cube--</option>
-      <option value="3x3x3">3x3x3</option>
-      <option value="2x2x2">2x2x2</option>
-      <option value="4x4x4">4x4x4</option>
-      <option value="5x5x5">5x5x5</option>
-      <option value="6x6x6">6x6x6</option>
-      <option value="7x7x7">7x7x7</option>
-      <option value="3x3x3BLD">3x3x3BLD</option>
-      <option value="FMC">FMC</option>
-      <option value="3x3x3OH">3x3x3OH</option>
-      <option value="Clock">Clock</option>
-      <option value="Megaminx">Megaminx</option>
-      <option value="Pyraminx">Pyraminx</option>
-      <option value="Skewb">Skewb</option>
-      <option value="Square-1">Square-1</option>
-    </select>
-
-    <!-- Member dropdown -->
-    <p><strong>Member:</strong></p>
-    <select id="memberName" name="memberName" required>
-      <option value="">--Select Member--</option>
-      <option value="Tonnam Tantikamnerdkul">Tonnam Tantikamnerdkul</option>
-      <option value="James Lin">James Lin</option>
-      <option value="Matthew Park">Matthew Park</option>
-      <option value="Harry Yu">Harry Yu</option>
-      <option value="Ayush Shete">Ayush Shete</option>
-      <option value="Yune Ham">Yune Ham</option>
-      <option value="Ethan Shi">Ethan Shi</option>
-      <option value="Mr. Leung">Mr. Leung</option>
-      <option value="Onew Kim">Onew Kim</option>
-      <option value="Markus Palkoci">Markus Palkoci</option>
-      <option value="Mason Kwok">Mason Kwok</option>
-      <option value="Siddhant Bairwa">Siddhant Bairwa</option>
-      <option value="Tristan Ng">Tristan Ng</option>
-      <option value="Mathis Tsang">Mathis Tsang</option>
-      <option value="Abtin Kha">Abtin Kha</option>
-      <option value="Zachary Ou">Zachary Ou</option>
-      <option value="Sean Leong">Sean Leong</option>
-      <option value="Ian Park">Ian Park</option>
-      <option value="Justin Tian">Justin Tian</option>
-      <option value="Priya Raghu">Priya Raghu</option>
-      <option value="Hugo Akesson">Hugo Akesson</option>
-      <option value="Daebum Yoon">Daebum Yoon</option>
-      <option value="Liam Senjack">Liam Senjack</option>
-    </select>
-
-    <!-- Time input -->
-    <p><strong>New Time:</strong></p>
-    <input type="text" id="newTime" name="newTime" placeholder="e.g. 5:23.46" required>
-
-    <!-- Submit button -->
-    <br><br>
-    <button type="submit">Update</button>
-  </form>
-
-  <!-- Feedback message -->
-  <div id="updateMessage" style="margin-top:1rem; color:#69a769; font-weight:bold;"></div>
-</div>
+    <div>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
   </nav>
 
   <main>
     <div class="admin-box">
       <h2>Update Times</h2>
-      <p>This is where you’ll add the form for updating times.</p>
+      <form id="updateForm">
+        <p><strong>Update Type:</strong></p>
+        <label><input type="radio" name="updateType" value="single" required> Personal Best (Single)</label>
+        <label><input type="radio" name="updateType" value="average"> Average</label>
+
+        <p><strong>Cube Type:</strong></p>
+        <select id="cubeType" name="cubeType" required>
+          <option value="">--Select Cube--</option>
+          <option>3x3x3</option>
+          <option>2x2x2</option>
+          <option>4x4x4</option>
+          <option>5x5x5</option>
+          <option>6x6x6</option>
+          <option>7x7x7</option>
+          <option>3x3x3BLD</option>
+          <option>FMC</option>
+          <option>3x3x3OH</option>
+          <option>Clock</option>
+          <option>Megaminx</option>
+          <option>Pyraminx</option>
+          <option>Skewb</option>
+          <option>Square-1</option>
+        </select>
+
+        <p><strong>Member:</strong></p>
+        <select id="memberName" name="memberName" required>
+          <option value="">--Select Member--</option>
+          <option>Tonnam Tantikamnerdkul</option>
+          <option>James Lin</option>
+          <option>Matthew Park</option>
+          <option>Harry Yu</option>
+          <option>Ayush Shete</option>
+          <option>Yune Ham</option>
+          <option>Ethan Shi</option>
+          <option>Mr. Leung</option>
+          <option>Onew Kim</option>
+          <option>Markus Palkoci</option>
+          <option>Mason Kwok</option>
+          <option>Siddhant Bairwa</option>
+          <option>Tristan Ng</option>
+          <option>Mathis Tsang</option>
+          <option>Abtin Kha</option>
+          <option>Zachary Ou</option>
+          <option>Sean Leong</option>
+          <option>Ian Park</option>
+          <option>Justin Tian</option>
+          <option>Priya Raghu</option>
+          <option>Hugo Akesson</option>
+          <option>Daebum Yoon</option>
+          <option>Liam Senjack</option>
+        </select>
+
+        <p><strong>New Time:</strong></p>
+        <input type="text" id="newTime" name="newTime" placeholder="e.g. 5:23.46" required>
+
+        <button type="submit">Update</button>
+      </form>
+
+      <div id="updateMessage" style="margin-top:1rem; color:#69a769; font-weight:bold;"></div>
     </div>
   </main>
 
@@ -212,14 +181,12 @@
     const repoOwner = "Chatprime64"; // replace with your GitHub username
     const repoName = "bmssrcc";      // replace with your repo name
 
-    // Helper: get cookie value
     function getCookie(name) {
       const value = `; ${document.cookie}`;
       const parts = value.split(`; ${name}=`);
       if (parts.length === 2) return parts.pop().split(";").shift();
     }
 
-    // Check cookie validity on page load
     async function checkAuth() {
       const key = getCookie("githubKey");
       if (!key) {
@@ -238,13 +205,22 @@
       }
     }
 
-    // Logout: clear cookie and go home
     function logout() {
       document.cookie = "githubKey=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; Secure; SameSite=Strict";
       window.location.href = "/bmssrcc/index.html";
     }
 
-    // Run check on load
+    document.getElementById("updateForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const updateType = document.querySelector('input[name="updateType"]:checked').value;
+      const cubeType = document.getElementById("cubeType").value;
+      const memberName = document.getElementById("memberName").value;
+      const newTime = document.getElementById("newTime").value;
+      document.getElementById("updateMessage").textContent =
+        `Updating ${memberName} - ${cubeType} - ${updateType} to ${newTime}... (logic to be added)`;
+      // TODO: integrate GitHub update logic here
+    });
+
     checkAuth();
   </script>
 </body>
