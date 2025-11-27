@@ -94,6 +94,7 @@
   </div>
 
   <script>
+    const res = await fetch('admin/library.json?ts=' + Date.now(), { cache: "no-store" });
     let members = [];
     let selectedItem = null;
     let selectedStudentId = null;
@@ -229,6 +230,7 @@
   </script>
 </body>
 </html>
+
 
 
 
