@@ -158,39 +158,43 @@
     `);
   }
 
-  async function finalizeBorrow() {
-    showModal(`
-      <h3>Cube has been requested.</h3>
-      <p>The website will update momentarily.</p>
-      <button onclick="closeModal()">OK</button>
-    `);
+async function finalizeBorrow() {
+  try {
+    const response = await fetch("https://script.google.com/macros/s/AKfycby4cyCjHzoLgEYXXuk8J0zZr-HWcotd8YjJPet0Kopi4w-tuWX_nR1FVZ-j1NBuVcQ7iw/exec", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        itemId: selectedItem.id,
+        studentId: selectedStudentId
+      })
+    });
 
-    document.getElementById("workflow-bar").style.display = "block";
-    document.getElementById("workflow-progress").style.width = "20%";
-
+    const text = await response.text(); // capture raw response
+    let result;
     try {
-      const response = await fetch("https://script.google.com/macros/s/AKfycby4cyCjHzoLgEYXXuk8J0zZr-HWcotd8YjJPet0Kopi4w-tuWX_nR1FVZ-j1NBuVcQ7iw/exec", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          itemId: selectedItem.id,
-          studentId: selectedStudentId
-        })
-      });
-
-      if (!response.ok) throw new Error("Network error");
-
-      document.getElementById("workflow-progress").style.width = "100%";
-      setTimeout(() => {
-        document.getElementById("workflow-bar").style.display = "none";
-        alert("Borrow confirmed! Cube is now active.");
-        loadLibrary(); // reload table to reflect updated status
-      }, 1500);
-    } catch (err) {
-      alert("Failed to trigger borrow workflow.");
-      console.error(err);
+      result = JSON.parse(text); // try to parse JSON
+    } catch {
+      result = { ok: false, raw: text }; // fallback if not JSON
     }
+
+    if (!response.ok || !result.ok) {
+      console.error("Workflow error:", {
+        status: response.status,
+        statusText: response.statusText,
+        body: result
+      });
+      alert(`Borrow failed.\nStatus: ${response.status} ${response.statusText}\nDetails: ${JSON.stringify(result)}`);
+      return;
+    }
+
+    alert("Borrow confirmed! Cube is now active.");
+    loadLibrary();
+  } catch (err) {
+    console.error("Network or script error:", err);
+    alert("Unexpected error: " + err.message);
   }
+}
+
 
   function showModal(content) {
     document.getElementById('modal-body').innerHTML = content;
@@ -209,6 +213,7 @@
 
 </body>
 </html>
+
 
 
 
