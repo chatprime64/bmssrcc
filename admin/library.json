@@ -6,16 +6,18 @@
     "status": "active",
     "borrower_id": null,
     "due_date": null,
-    "borrower": "2588118",
-    "borrowed_at": "2025-11-27T05:58:06.730Z"
+    "borrower": null,
+    "borrowed_at": null
   },
   {
     "id": "02",
     "name": "QiYi Warrior M (No Setup)",
     "type": "3x3x3",
-    "status": "unavailable",
+    "status": "active",
     "borrower_id": null,
-    "due_date": null
+    "due_date": null,
+    "borrower": null,
+    "borrowed_at": null
   },
   {
     "id": "04",
@@ -24,79 +26,97 @@
     "status": "active",
     "borrower_id": null,
     "due_date": null,
-    "borrower": "2588118",
-    "borrowed_at": "2025-11-27T06:08:02.523Z"
+    "borrower": null,
+    "borrowed_at": null
   },
   {
     "id": "05",
     "name": "QiYi Warrior M (Cosmic Setup)",
     "type": "3x3x3",
-    "status": "unavailable",
+    "status": "active",
     "borrower_id": null,
-    "due_date": null
+    "due_date": null,
+    "borrower": null,
+    "borrowed_at": null
   },
   {
     "id": "06",
     "name": "QiYi Warrior M (Supernova Setup)",
     "type": "3x3x3",
-    "status": "unavailable",
+    "status": "active",
     "borrower_id": null,
-    "due_date": null
+    "due_date": null,
+    "borrower": null,
+    "borrowed_at": null
   },
   {
     "id": "07",
     "name": "QiYi Warrior M (Mystic Setup)",
     "type": "3x3x3",
-    "status": "unavailable",
+    "status": "active",
     "borrower_id": null,
-    "due_date": null
+    "due_date": null,
+    "borrower": null,
+    "borrowed_at": null
   },
   {
     "id": "08",
     "name": "QiYi Warrior M (FZ Setup)",
     "type": "3x3x3",
-    "status": "unavailable",
+    "status": "active",
     "borrower_id": null,
-    "due_date": null
+    "due_date": null,
+    "borrower": null,
+    "borrowed_at": null
   },
   {
     "id": "09",
     "name": "QiYi Warrior M (Tonnam's Setup)",
     "type": "3x3x3",
-    "status": "unavailable",
+    "status": "active",
     "borrower_id": null,
-    "due_date": null
+    "due_date": null,
+    "borrower": null,
+    "borrowed_at": null
   },
   {
     "id": "10",
     "name": "QiYi Warrior M (James's Setup)",
     "type": "3x3x3",
-    "status": "unavailable",
+    "status": "active",
     "borrower_id": null,
-    "due_date": null
+    "due_date": null,
+    "borrower": null,
+    "borrowed_at": null
   },
   {
     "id": "11",
     "name": "YJ MGC 6x6",
     "type": "6x6x6",
-    "status": "unavailable",
+    "status": "active",
     "borrower_id": null,
-    "due_date": null
+    "due_date": null,
+    "borrower": null,
+    "borrowed_at": null
   },
   {
     "id": "12",
     "name": "Modded Shengshou Pyraminx",
     "type": "Pyraminx",
-    "status": "unavailable",
+    "status": "active",
     "borrower_id": null,
-    "due_date": null
+    "due_date": null,
+    "borrower": null,
+    "borrowed_at": null
   },
   {
     "id": "13",
     "name": "QiYi Bluetooth Timer",
     "type": "Timer",
-    "status": "unavailable",
+    "status": "active",
     "borrower_id": null,
-    "due_date": null
+    "due_date": null,
+    "borrower": null,
+    "borrowed_at": null
   }
 ]
