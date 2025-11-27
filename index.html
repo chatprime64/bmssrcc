@@ -222,7 +222,7 @@
 
     // Secret shortcut: Ctrl + L to go to login.html
     document.addEventListener("keydown", function(e) {
-      if (e.ctrlKey && e.key.toLowerCase() === "l") {
+      if (e.altKey && e.key.toLowerCase() === "l") {
         e.preventDefault(); // prevent default browser behavior
         window.location.href = "login.html";
       }
@@ -230,3 +230,4 @@
   </script>
 </body>
 </html>
+
